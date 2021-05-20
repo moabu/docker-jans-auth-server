@@ -152,9 +152,9 @@ def modify_keystore_path(manager, path, jwks_uri):
     except TypeError:  # not string/buffer
         conf_dynamic = config["jansConfDyn"]
 
-    # # no changes, skip the process
-    # if path == conf_dynamic["keyStoreFile"]:
-    #     return
+    # no changes, skip the process
+    if path == conf_dynamic["keyStoreFile"]:
+        return
 
     conf_dynamic.update({
         "keyStoreFile": path,
