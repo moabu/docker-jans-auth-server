@@ -33,6 +33,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
+          image: tonistiigi/binfmt:buildkit-master
           platforms: all
 
       - name: Set up Docker Buildx
