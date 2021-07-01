@@ -3,10 +3,7 @@ name: Build and Publish Releases to Hub
 on:
   push:
     tags:
-      - "v*.*.*"
-    branches:
-      - master
-      - main
+      - "*.*.*"
   workflow_dispatch:
 
 jobs:
@@ -19,14 +16,15 @@ jobs:
       - name: Prepare
         id: prep
         run: |
+          MAIN_VERSION=$(python3 -c 'import __version__ ; print(str(__version__.__version__)[:5])')
           DOCKER_IMAGE=janssenproject/$(python3 -c 'import os ; REPO = os.environ.get("GITHUB_REPOSITORY") ; print(str(REPO).split("/")[1][12:])')
-          VERSION=1.0.0_dev
+          VERSION=${MAIN_VERSION}_dev
           if [[ $GITHUB_REF == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/v}
+            VERSION=${GITHUB_REF#refs/tags/}
           fi
           TAGS="${DOCKER_IMAGE}:${VERSION}"
-          if [[ $VERSION =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-            TAGS="$TAGS,${DOCKER_IMAGE}:dev"
+          if [[ $VERSION =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\_[a-b]{1}[0-9]{1,3}$ ]]; then
+            TAGS="$TAGS,${DOCKER_IMAGE}:${MAIN_VERSION}_dev"
           fi
           echo ::set-output name=tags::${TAGS}
 
