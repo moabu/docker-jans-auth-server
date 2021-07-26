@@ -4,4 +4,4 @@
  This is only used by Github actions: release.yaml workflow.
 """
 __version__ = "1.3.0_b6"
-__previous_version__ = "1.0.0_b5"
+__previous_version__ = "1.0.0_b10"
