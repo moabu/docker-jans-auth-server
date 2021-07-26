@@ -6,8 +6,9 @@ on:
     paths:
       - __version__.py
     branches:
+      - "*"
       - "!master"
-      - "!main"         
+      - "!main"
     tags:
       - "!*"
   workflow_dispatch:
