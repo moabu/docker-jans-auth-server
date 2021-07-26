@@ -5,12 +5,11 @@ on:
   push:
     paths:
       - __version__.py
-    branches:
+    branches-ignore:
+      - master
+      - main
+    tags-ignore:
       - "*"
-      - "!master"
-      - "!main"
-    tags:
-      - "!*"
   workflow_dispatch:
 jobs:
   build:
